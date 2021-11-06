@@ -2,12 +2,12 @@ import { LabelName, Search, BtnContact, FormSt } from './ContactForm.styled';
 import { useState } from 'react';
 import shortid from 'shortid';
 import { addContact } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const [id, setId] = useState('');
+  const contacts = useSelector(state => state.items);
   const dispatch = useDispatch();
 
   //метод, который будет обновлять состояние input
@@ -31,6 +31,10 @@ function ContactForm({ onSubmit }) {
   const handleSubmit = e => {
     //функция, чтобы старница не перезагружалась при submit
     e.preventDefault();
+
+    if (contacts.map(contact => contact.name).includes(name)) {
+      alert(`Sorry, but ${name} is already in contacs.`);
+    }
 
     //передаем props Компонента ContactForm (ребенка) в Компонент App (родитель)
     const addNewContact = {

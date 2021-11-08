@@ -34,6 +34,7 @@ function ContactForm({ onSubmit }) {
 
     if (contacts.map(contact => contact.name).includes(name)) {
       alert(`Sorry, but ${name} is already in contacs.`);
+      return;
     }
 
     //передаем props Компонента ContactForm (ребенка) в Компонент App (родитель)
